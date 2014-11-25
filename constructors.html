@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src='assets/js/assertion.js'></script>
+    <!--<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="style.css" />-->
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
+
+    <title>Constructors</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    function GoodConstructor() {
+        /**
+         * JS creates a new empty object and assigns it to this. We can set anything on this. Finally, the return value for this function
+         * is this newly created object, which is the function context. We can set anything on this newly created object to init it.
+         * However, returning anything other than this is a bad practice (JS allows you to do so)
+         */
+
+        this.returnThis = function() {return this};
+        return this;
+    }
+
+    var obj1 = new GoodConstructor();
+    assert(obj1.returnThis() === obj1, 'constructor context');
+
+    console.log(new GoodConstructor().returnThis()); //This prints out the object without name
+
+    //Can I call GoodConstructor wihtout new? What happens?
+    var noNew = GoodConstructor();
+    assert(noNew.returnThis() === window, "Function context is the window when new is not invoked on constructor ", noNew.returnThis());
+    assert(window.returnThis, "Function context is the window");
+
+    function GoodConstructorWithoutReturn() {
+        this.returnThis = function() { return this};
+    }
+
+    var obj1b = new GoodConstructorWithoutReturn();
+    assert(obj1b.returnThis() === obj1b, "No need ot return in constructor");
+
+
+    function BadConstructor() {
+        this.returnThisFromBad = function() { return this};
+        return {somethingElse:true};//Return something else. Let us see if this fails
+    }
+
+    var obj2 = new BadConstructor();
+
+    assert(!window.returnThisFromBad, 'since something else was returned, returnThis does not exist even on window');
+    assert(!obj2.returnThisFromBad, 'since something else was returned, returnThis does not exist');
+    assert(obj2.somethingElse, 'Returns what we asked it to return, not the constructor context');
+
+</script>
+</html>

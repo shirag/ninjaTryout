@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src='assets/js/assertion.js'></script>
+    <!--<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="style.css" />-->
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
+
+    <title>Function Basics</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+
+    var test;
+
+    //Different types of function:
+    //Anonymous function
+    function isNimble(){
+        return true;
+    }
+    assert(typeof window.isNimble === 'function', "isNimble() defined");
+    assert(isNimble.name === 'isNimble', "isNimble() has a name");
+    assert(isNimble != "function", "cant call function without reference to window object");
+    assert(window.warrior(), "Function defined at a later point seems to be visible even before");
+    assert(warrior(), "Function defined at a later point seems to be visible even before");
+    assert(!namedFunction, "Variable that references a function defined at a later point is not visible");//Surprise!
+    assert(typeof namedFunction === 'function', 'namedFunction already in scope');
+
+    function warrior() {
+        return true;
+    };
+
+    var namedFunction = function warrior() {
+        return true;
+    };
+
+    assert(typeof window.namedFunction === 'function', "warrior is defined and is function");
+    assert(namedFunction.name === 'warrior', "function does not get name of variable. It instead is ");
+    assert(window.namedFunction(), "Function is invokable");
+
+    window.onWindow = function() {
+        return true;
+    };
+    assert(typeof window.onWindow === 'function', "Function defined directly on window exists");
+    assert(window.onWindow.name === '', "window.onWindow does not have name");
+
+    //Function inside a function.
+    function outer() {
+        assert(!inner, "e");
+        assert(typeof inner, 'inner already in scope');
+        assert(typeof inner === 'function', 'typeof inner is not visible yet. Not sure why');
+        assert(typeof inner2 === 'function', 'inner2 already in scope');
+        var inner = function() { return true};
+        function inner2() {return true;}
+
+    }
+    outer();
+</script>
+</html>

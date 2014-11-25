@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src='assets/js/assertion.js'></script>
+    <!--<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="style.css" />-->
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
+
+    <title>Apply And Call</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    /**
+     * Check Palindrome
+     */
+
+    function isPalindrome(string) {
+        if (!string) return null;
+        if (string.length === 1) return true;
+        var last = string.length - 1;
+        var index = 0;
+
+        for (; index < string.length/2; index++) {
+            if (string[index] != string[last--]) return false;
+        }
+        return true;
+    }
+
+    function isRecursivePalindrome(string) {
+
+    }
+
+    assert(isPalindrome(null) === null, "undefined should not fail");
+    assert(isPalindrome('a'), "a is palindrome");
+    assert(isPalindrome('noon'), "noon is palindrome");
+    assert(isPalindrome('malayalam'), "malayalam is not palindrome");
+    assert(isPalindrome('12321'), "12321 is  palindrome");
+    assert(isPalindrome('aabfghhgfbaa'), "aabfghhgfbaa is  palindrome");
+    assert(!isPalindrome('moon'), "moon is not palindrome");
+    assert(!isPalindrome('foobar'), "foobar is not palindrome");
+    assert(!isPalindrome('bingo'), "bingo is not palindrome");
+
+
+</script>
+</html>

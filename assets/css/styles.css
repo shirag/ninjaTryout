@@ -1,0 +1,6 @@
+.spaced-up {
+    line-height: 20px;
+    border: 2px red dotted;
+}
+
+#results li.pass { color: green; } #3 #results li.fail { color: red; } #3

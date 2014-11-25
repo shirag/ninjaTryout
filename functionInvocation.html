@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src='assets/js/assertion.js'></script>
+    <!--<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="style.css" />-->
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
+
+    <title>Function Scoping</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+
+    function returnThis() { return this; };
+    /**
+     * Function invocation as Function
+     */
+    assert(returnThis() === window, "Window is the owner");
+
+    //Function inside a function
+
+    function outer() {
+        console.log(returnThis());
+        assert(returnThis() === window, "interestingly, window is owner even in inner function");
+
+        //What if function was defined here
+        function inner1ReturnThis() {return this};
+        assert(inner1ReturnThis() === window, "interestingly, window is owner even in inner function");
+
+        //Let us check another level out.
+        function inner() {
+            return returnThis;
+        };
+        var innerFn = inner();
+        assert(innerFn() === window, "interestingly, window is owner even in innermost function");
+
+        //That said, these functions are not defined on window:
+        assert(!window.inner1ReturnThis, "Not defined");
+        assert(!window.inner, "Not defined");
+    };
+    outer();
+
+    /*
+    * Function invocation as method
+    * */
+    var myObj1 = {
+        myMethod: returnThis
+    };
+    assert(myObj1.myMethod() === myObj1, "Object is the owner");
+
+    var myObj2 = {
+        myMethod: returnThis
+    };
+    assert(myObj2.myMethod() === myObj2, "Object is the owner");
+
+    /**
+     * Function invocation as constructor
+     */
+
+    /**
+     * Function invocation via call and apply
+     */
+</script>
+</html>

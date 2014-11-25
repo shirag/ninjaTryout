@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src='assets/js/assertion.js'></script>
+    <!--<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="style.css" />-->
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
+
+    <title>Apply And Call</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+
+    var myObject1 = {};
+    var myObject2 = {};
+
+    function myFunction() {
+        this.newVariable = true;
+    }
+    myFunction.apply(myObject1);
+    assert(myObject1.newVariable == true, "Voila! Function context became myObject");
+
+    myFunction.call(myObject2);
+    assert(myObject2.newVariable == true, "Voila! Function context became myObject");
+
+    /**
+     * Why use call vs apply?
+     * Apply: When array of arguments can be passed
+     * Call: When random objects need to be passed
+     */
+
+    function sumItUp() {
+        this.sum = 0;
+        for (var index = 0; index < arguments.length; index++) {
+            this.sum += arguments[index];
+        }
+    };
+
+    var sumObj1 ={};
+    var sumObj2 ={};
+    sumItUp.apply(sumObj1, [2, 2]);
+    sumItUp.call(sumObj2, 3, 3, 3, 3);
+    assert(sumObj1.sum == 4, "Summed thru apply: " + sumObj1.sum);
+    assert(sumObj2.sum == 12, "Summed thru call: " + sumObj2.sum);
+
+    /**
+     * More Practical Example
+     */
+
+    forEach()
+
+</script>
+</html>
